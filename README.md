@@ -22,7 +22,7 @@ Screen sharing features
 
 Status
 
-Day 1 – Project started
+Day 2 – v0.01 released
 
-Learning python and building foundations
+Currently working on a basic chat system for the AI
 

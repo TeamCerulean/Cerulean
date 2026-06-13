@@ -22,7 +22,7 @@ Screen sharing features
 
 Status
 
-Day 3 – v0.02 almost done
+Day 3 – v0.02 done
 
-Currently working on a basic chat system for the AI
+Chat system base done, code can tell the difference between a chat and a command
 

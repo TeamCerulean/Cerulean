@@ -12,12 +12,12 @@ To help people like students, startup founders, professionals, and anyone who wa
 Vision
 
 We aim to provide:
-Goal planning
-Learning roadmaps
-Project guidance
-Long-term memory
-Tools for growth
-Voice input
+Goal planning, 
+Learning roadmaps, 
+Project guidance, 
+Long-term memory, 
+Tools for growth, 
+Voice input, 
 Screen sharing features
 
 Status

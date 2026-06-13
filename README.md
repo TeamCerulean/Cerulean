@@ -22,7 +22,7 @@ Screen sharing features
 
 Status
 
-Day 2 – v0.01 released
+Day 3 – v0.02 almost done
 
 Currently working on a basic chat system for the AI
 

@@ -22,7 +22,6 @@ Screen sharing features
 
 Status
 
-Day 3 – v0.02 done
+Day 4 – v0.03 done
 
-Chat system base done, code can tell the difference between a chat and a command
-
+Basic memory and 2 new commands, /name and /setname

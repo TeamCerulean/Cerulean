@@ -22,6 +22,6 @@ Screen sharing features
 
 Status
 
-Day 4 – v0.03 done
+Day 9 – v0.05 done
 
-Basic memory and 2 new commands, /name and /setname
+TTS, Chatting updated

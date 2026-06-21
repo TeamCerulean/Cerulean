@@ -9,23 +9,21 @@ import msvcrt
 
 speaker = win32com.client.Dispatch("SAPI.SpVoice")
 
+def save_memory():
+    with open("memory.json", "w") as f:
+        json.dump(memory, f)
+
+VERSION = "v0.06"
+
 def speak(text):
         print(f"Cerulean: {text}")
         speaker.Speak(str(text))
-
 
 try:
     with open("memory.json", "r") as f:
         memory = json.load(f)
 except FileNotFoundError:
     memory = {}
-
-
-def save_memory():
-    with open("memory.json", "w") as f:
-        json.dump(memory, f)
-
-VERSION = "v0.04"
 
 print(f"""====================
 Cerulean
@@ -66,6 +64,10 @@ def help_command():
     print("           /setgoal - Set your goal")
     print("           /goal - Get your saved goal")
     print("           /profile - See your Cerulean profile")
+    print("           /tasks - Get your saved tasks")
+    print("           /finishtask - Finish your tasks")
+    print("           /settask - Set your tasks")
+    print("           /sing - Makes Cerulean sing a song")
 
 def setname_command():
     name = input("Enter your name: ")
@@ -106,24 +108,88 @@ def goal_command():
     else:
         speak("You haven't set your goal. Use /setgoal to set it.")
 
+def settask_command():
+    task = input("Enter your task: ")
+
+    if "tasks" not in memory:
+        memory["tasks"] = []
+
+    memory["tasks"].append(task)
+
+    save_memory()
+    speak("Task saved.")
+
+def tasks_command():
+    tasks = memory.get("tasks")
+
+    if tasks:
+        for i, task in enumerate(tasks, start=1):
+            print(f"{i}. {task}")
+    else:
+        speak("You haven't set any tasks yet. Use /settask to set one.")
+
+def finishtask_command():
+    tasks = memory.get("tasks")
+
+    for i, task in enumerate(tasks, start=1):
+        print(f"{i}. {task}")
+
+    speak("What task did you finish?")
+
+    choice = int(input("Enter task number: "))
+
+    completed = tasks.pop(choice - 1)
+
+    save_memory()
+
+    speak(f"Completed task: {completed}.")
+
+def deletetask_command():
+    tasks = memory.get("tasks")
+
+    for i, task in enumerate(tasks, start=1):
+        print(f"{i}. {task}")
+
+    speak("What task did you want to delete?")
+
+    choice = int(input("Enter task number: "))
+
+    deleted = tasks.pop(choice - 1)
+
+    save_memory()
+
+    speak(f"Removed task: {deleted}.")
+
+def sing_command():
+    speak("Twinkle, twinkle, little star,")
+    speak("How I wonder what you are!")
+    speak("Up above the world so high,")
+    speak("Like a diamond in the sky!")
+    speak("Twinkle, twinkle, little star,")
+    speak("How I wonder what you are!")
+
 def profile_command():
     name = memory.get("name", "Not set")
     goal = memory.get("goal", "Not set")
     subjects = memory.get("subjects", "Not set")
 
-    print("===== Cerulean Profile ===================================")
+    print("===== Cerulean Profile ====================================")
 
     print(f"Name: {name}")
-    print(f"Goal: {goal}")
     print(f"Subjects: {subjects}")
+    print(f"Goal: {goal}")
 
     speaker.Speak(
         f"Name: {name}. "
-        f"Goal: {goal}. "
         f"Subjects: {subjects}."
+        f"Goal: {goal}. "
     )
 
-    print("==========================================================")
+    print("===========================================================")
+
+name = memory.get("name",)
+goal = memory.get("goal",)
+subjects = memory.get("subjects",)
 
 commands = {
     "/quit": quit_command,
@@ -138,11 +204,14 @@ commands = {
     "/subjects": subjects_command,
     "/setgoal": setgoal_command,
     "/goal": goal_command,
-    "/profile": profile_command
+    "/profile": profile_command,
+    "/settask": settask_command,
+    "/tasks": tasks_command,
+    "/finishtask": finishtask_command,
+    "/deletetask": deletetask_command,
+    "/sing": sing_command,
 
 }
-name = memory.get("name")
-subjects = memory.get("subjects", [])
 
 if name:
      greetings = [
@@ -184,10 +253,13 @@ while True:
 
     text = user_input.lower()
 
-    if "hello" in text or "hi" in text:
+    if text in ["hello", "hi"]:
         speak("Hello from Cerulean!")
 
-    elif "goodbye" in text or "bye" in text:
+    elif text in ["what should i study"]:
+        speak(f"I think you should study {random.choice(subjects)} today!")
+
+    elif text in ["goodbye", "bye"]:
         speak("Goodbye! Use /quit to exit the program.")
 
     else:

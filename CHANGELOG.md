@@ -1,8 +1,9 @@
 # Cerulean Changelog
 
-## v0.05
-Released 19 June 2026
+## v0.06
+Released 21 June 2026
 
 New Features:
-Added very basic chat
-Added TTS
+Added task management commands
+
+Added /sing because why not
